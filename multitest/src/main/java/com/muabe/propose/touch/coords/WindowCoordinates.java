@@ -15,7 +15,7 @@ import android.view.Window;
 
 public class WindowCoordinates {
     private static Window window;
-    private static AbsolutenessCoordinates absolutenessCoordinates;
+    private static AbsolutenessCoordinates absolutenessCoordinates = new AbsolutenessCoordinates();
 
     private WindowCoordinates(){}
 

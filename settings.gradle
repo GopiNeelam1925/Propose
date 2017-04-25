@@ -1,1 +1,1 @@
-include ':app', ':propose', ':multitest'
+include ':propose', ':multitest'
