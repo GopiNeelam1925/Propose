@@ -11,17 +11,17 @@ import com.muabe.propose.State;
  */
 
 public class Point {
-    public interface onPointListener {
+    public interface OnPointListener {
         void onPoint(float prePoint, float point);
         void onMin(float currentPoint, float distance);
         void onMax(float currentPoint, float distance);
     }
 
     private float point, minPoint, maxPoint;
-    private onPointListener onPointListener;
+    private OnPointListener onPointListener;
     protected State.MotionState state;
 
-    public Point(State.MotionState state, float maxPoint, onPointListener onPointListener) {
+    public Point(State.MotionState state, float maxPoint, OnPointListener onPointListener) {
         this.maxPoint = maxPoint;
         this.state = state;
         this.minPoint = 0f;

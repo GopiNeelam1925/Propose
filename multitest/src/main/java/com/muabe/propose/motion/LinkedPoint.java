@@ -18,7 +18,7 @@ public class LinkedPoint extends Point {
         void onPointChange(State.MotionState preState, State.MotionState currState);
     }
 
-    public LinkedPoint(State.MotionState motionState, float maxPoint, Point.onPointListener onPointListener) {
+    public LinkedPoint(State.MotionState motionState, float maxPoint, OnPointListener onPointListener) {
         super(motionState, maxPoint, onPointListener);
     }
 

@@ -5,15 +5,17 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.muabe.propose.motion.filter.DirectionFilter;
-import com.muabe.propose.motion.LinkedPoint;
-import com.muabe.propose.motion.Point;
+import com.muabe.propose.motion.DragFilter;
+import com.muabe.propose.motion.Motion;
+import com.muabe.propose.motion.filter.Filter;
 import com.muabe.propose.touch.coords.MetrixCordinates;
 import com.muabe.propose.touch.coords.WindowCoordinates;
 import com.muabe.propose.touch.detector.MultiMotionEvent;
 import com.muabe.propose.touch.detector.SingleMotionEvent;
 import com.muabe.propose.touch.detector.TouchDetectAdapter;
 import com.muabe.propose.util.Mlog;
+
+import java.util.List;
 
 /**
  * <br>捲土重來<br>
@@ -28,47 +30,22 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
     private TouchDetectAdapter touchDetectAdapter;
     private boolean isWindow = false;
 
-
-    DirectionFilter directionFilter = new DirectionFilter();
     public TouchDetector(Context context) {
         touchDetectAdapter = new TouchDetectAdapter(context, this);
         isWindow = WindowCoordinates.isBindWindow();
         Mlog.e(this, "WindowCoordinates:"+isWindow);
-        float density = context.getResources().getDisplayMetrics().density;
-        directionFilter.addPoint(new LinkedPoint(State.MotionState.LEFT, 100*density, new Point.onPointListener() {
-            @Override
-            public void onPoint(float prePoint, float point) {
-                Mlog.d(TouchDetector.this, directionFilter.getState()+"/LEFT:"+point);
-            }
 
-            @Override
-            public void onMin(float currentPoint, float distance) {
-
-            }
-
-            @Override
-            public void onMax(float currentPoint, float distance) {
-                Mlog.i(TouchDetector.this, "left max");
-            }
-        }));
-
-        directionFilter.addPoint(new LinkedPoint(State.MotionState.RIGHT, 100*density, new Point.onPointListener() {
-            @Override
-            public void onPoint(float prePoint, float point) {
-                Mlog.d(TouchDetector.this, directionFilter.getState()+"/RIGHT:"+point);
-            }
-
-            @Override
-            public void onMin(float currentPoint, float distance) {
-
-            }
-
-            @Override
-            public void onMax(float currentPoint, float distance) {
-                Mlog.i(TouchDetector.this, "right max");
-            }
-        }));
+        test();
     }
+
+    //TODO REMOVE
+    private void test(){
+        Motion left = new Motion(State.MotionState.LEFT);
+        Motion right = new Motion(State.MotionState.RIGHT);
+        Filter.addSingleMotion(left);
+        Filter.addSingleMotion(right);
+    }
+
 
     public boolean onTouchEvent(View touchView, MotionEvent originEvent) {
         //좌표로 변환
@@ -84,24 +61,6 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
         }else{
             event =MetrixCordinates.convertMotionEvent(originEvent, touchView, true);
         }
-
-//        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-//
-//        }else if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_MOVE) {
-//            if(event.getPointerCount()>1){
-//                touchView.setRotationY(touchView.getRotationY()+5);
-//            }
-//        }else if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
-//            touchView.setRotation(0);
-//            touchView.setRotationY(0);
-//            touchView.setRotationX(0);
-//        }
-//        else if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_POINTER_DOWN) {
-//            if(event.getPointerCount() ==2){
-//
-//            }
-//            return true;
-//        }
 
         return touchDetectAdapter.onTouchEvent(event);
     }
@@ -119,7 +78,10 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
 
     @Override
     public boolean onDrag(SingleMotionEvent event) {
-        directionFilter.dragFilter(event);
+        List<DragFilter> dragFilterList = Filter.getSingleValues();
+        for(DragFilter filter : dragFilterList){
+            filter.dragFilter(event);
+        }
         return true;
     }
 

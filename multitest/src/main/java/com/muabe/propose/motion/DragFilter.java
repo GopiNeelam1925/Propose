@@ -11,6 +11,6 @@ import com.muabe.propose.touch.detector.SingleMotionEvent;
  */
 
 public interface DragFilter {
-    void addPoint(LinkedPoint point);
+    void addMotion(Motion motion);
     boolean dragFilter(SingleMotionEvent event);
 }
