@@ -76,8 +76,8 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
                 if (state == State.MotionState.NONE) {
                     for (PointObserver observer : pointObservable.getValues()) {
                         if (observer.getPoint().isLikeOrientation(distance)) {
-                            observer.getPoint().setPoint(distance);
                             onPointChange(state, observer.getPoint().getState());
+                            observer.getPoint().setPoint(distance);
                             return true;
                         }
                     }

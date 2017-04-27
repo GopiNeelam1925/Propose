@@ -1,7 +1,6 @@
 package com.muabe.propose;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -40,10 +39,12 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
 
     //TODO REMOVE
     private void test(){
-//        Filter.addSingleMotion(new Motion(State.MotionState.LEFT));
-//        Filter.addSingleMotion(new Motion(State.MotionState.RIGHT));
-        Filter.addSingleMotion(new Motion(State.MotionState.UP));
-        Filter.addSingleMotion(new Motion(State.MotionState.DOWN));
+        Filter.addSingleMotion(new Motion(State.MotionState.LEFT));
+        Filter.addSingleMotion(new Motion(State.MotionState.RIGHT));
+//        Filter.addSingleMotion(new Motion(State.MotionState.UP));
+//        Filter.addSingleMotion(new Motion(State.MotionState.DOWN));
+        Filter.addSingleMotion(new Motion(State.MotionState.MULTI_LEFT));
+        Filter.addSingleMotion(new Motion(State.MotionState.MULTI_RIGHT));
     }
 
 
@@ -67,7 +68,7 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
 
     @Override
     public boolean onDown(SingleMotionEvent event) {
-        Log.i("MultiTouchDetector", "onDown");
+        Mlog.i(this, "onDown");
         return true;
     }
 
@@ -87,24 +88,25 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
 
     @Override
     public boolean onMulitBegin(MultiMotionEvent event) {
-        Log.e("MultiTouchDetector", "onMulitBegin");
+        Mlog.e(this, "onMulitBegin");
         return true;
     }
 
     @Override
     public boolean onMultiEnd(MultiMotionEvent event) {
-        Log.e("MultiTouchDetector", "onMultiEnd");
+        Mlog.e(this, "onMultiEnd");
         return true;
     }
 
     @Override
     public boolean onMultiDrag(MultiMotionEvent event) {
+
         return true;
     }
 
     @Override
     public boolean onMultiUp(MultiMotionEvent multiEvent) {
-        Log.e("MultiTouchDetector", "onMultiUp");
+        Mlog.e(this, "onMultiUp");
         return true;
     }
 

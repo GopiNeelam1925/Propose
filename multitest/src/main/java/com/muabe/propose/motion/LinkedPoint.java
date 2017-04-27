@@ -30,10 +30,10 @@ public class LinkedPoint extends Point {
     protected void onMin(float currentPoint, float distance) {
         super.onMin(currentPoint, distance);
         if(linkPoint!=null){
-            linkPoint.setPoint(distance);
             if(onPointChangeListener!=null){
                 onPointChangeListener.onPointChange(getState(), linkPoint.getState());
             }
+            linkPoint.setPoint(distance);
         }
     }
 
