@@ -17,23 +17,29 @@ import java.util.List;
 
 public class Filter {
     private static ObservableMap<State.MotionState, DragFilter> singleFilters = new ObservableMap<>();
+
     static {
         singleFilters.clear();
-        DirectionFilter directionFilter = new DirectionFilter();
+        DirectionFilter directionH = DirectionFilter.getX();
+        DirectionFilter directionV = DirectionFilter.getY();
 
-        Filter.addSingle(State.MotionState.LEFT, directionFilter);
-        Filter.addSingle(State.MotionState.RIGHT, directionFilter);
+        Filter.addSingle(State.MotionState.LEFT, directionH);
+        Filter.addSingle(State.MotionState.RIGHT, directionH);
+        Filter.addSingle(State.MotionState.UP, directionV);
+        Filter.addSingle(State.MotionState.DOWN, directionV);
     }
 
-    public static void addSingle(State.MotionState state, DragFilter filter){
+    public static void addSingle(State.MotionState state, DragFilter filter) {
         Filter.singleFilters.put(state, filter);
     }
 
-    public static void addSingleMotion(Motion motion){
-        Filter.singleFilters.get(motion.getMotionState()).addMotion(motion);
+    public static void addSingleMotion(Motion motion) {
+        if(Filter.singleFilters.containsKey(motion.getMotionState())) {
+            Filter.singleFilters.get(motion.getMotionState()).addMotion(motion);
+        }
     }
 
-    public static List<DragFilter> getSingleValues(){
+    public static List<DragFilter> getSingleValues() {
         return singleFilters.getValues();
     }
 }

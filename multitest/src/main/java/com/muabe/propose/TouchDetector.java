@@ -40,10 +40,10 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
 
     //TODO REMOVE
     private void test(){
-        Motion left = new Motion(State.MotionState.LEFT);
-        Motion right = new Motion(State.MotionState.RIGHT);
-        Filter.addSingleMotion(left);
-        Filter.addSingleMotion(right);
+//        Filter.addSingleMotion(new Motion(State.MotionState.LEFT));
+//        Filter.addSingleMotion(new Motion(State.MotionState.RIGHT));
+        Filter.addSingleMotion(new Motion(State.MotionState.UP));
+        Filter.addSingleMotion(new Motion(State.MotionState.DOWN));
     }
 
 

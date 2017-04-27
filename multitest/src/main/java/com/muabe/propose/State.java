@@ -20,6 +20,7 @@ public class State {
         RIGHT(1, 1),
         UP(-1, 1),
         DOWN(1, 1),
+
         MULTI_LEFT(-1, 2),
         MULTI_RIGHT(1, 2),
         MULTI_UP(-1, 2),

@@ -19,23 +19,49 @@ import java.util.List;
  * @since 2017-04-07
  */
 
-public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeListener{
+public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeListener {
     private State.MotionState state = State.MotionState.NONE;
     private ObservableMap<State.MotionState, PointObserver> pointObservable = new ObservableMap<>();
+    private Distance distance;
 
+    private interface Distance {
+        float get(SingleMotionEvent event);
+    }
+
+    private DirectionFilter(Distance distance) {
+        this.distance = distance;
+    }
 
     public State.MotionState getState() {
         return state;
     }
 
+    public static DirectionFilter getX() {
+        return new DirectionFilter(new Distance() {
+            @Override
+            public float get(SingleMotionEvent event) {
+                return event.getDragX();
+            }
+        });
+    }
+
+    public static DirectionFilter getY() {
+        return new DirectionFilter(new Distance() {
+            @Override
+            public float get(SingleMotionEvent event) {
+                return event.getDragY();
+            }
+        });
+    }
+
     @Override
-    public void addMotion(Motion motion){
+    public void addMotion(Motion motion) {
         LinkedPoint point = new LinkedPoint(motion.getMotionState(), motion.getMaxPoint(), motion);
         PointObserver observer = new PointObserver(point);
         point.setOnPointChangeListener(this);
         pointObservable.put(motion.getMotionState(), observer);
 
-        if(pointObservable.size() > 1){
+        if (pointObservable.size() > 1) {
             List<State.MotionState> keyList = pointObservable.getKeys();
             pointObservable.get(keyList.get(0)).getPoint().setLinkPoint(pointObservable.get(keyList.get(1)).getPoint());
             pointObservable.get(keyList.get(1)).getPoint().setLinkPoint(pointObservable.get(keyList.get(0)).getPoint());
@@ -43,9 +69,9 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     }
 
     @Override
-    public boolean dragFilter(SingleMotionEvent event){
-        if(pointObservable.size()>0) {
-            float distance = event.getDragX();
+    public boolean dragFilter(SingleMotionEvent event) {
+        if (pointObservable.size() > 0) {
+            float distance = this.distance.get(event);
             if (distance != 0) {
                 if (state == State.MotionState.NONE) {
                     for (PointObserver observer : pointObservable.getValues()) {
@@ -70,27 +96,28 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     @Override
     public void onPointChange(State.MotionState preState, State.MotionState currState) {
         state = currState;
-        Mlog.e(this, "바뀜:"+state);
+        Mlog.e(this, "바뀜:" + state);
     }
 
-    private class PointObserver{
+    private class PointObserver {
         LinkedPoint point;
         Point.OnPointListener pointListener;
 
-        public PointObserver(LinkedPoint point){
+        public PointObserver(LinkedPoint point) {
             this.point = point;
         }
 
-        public LinkedPoint getPoint(){
+        public LinkedPoint getPoint() {
             return point;
         }
 
-        public Point.OnPointListener getPointListener(){
+        public Point.OnPointListener getPointListener() {
             return pointListener;
         }
 
-        public void setPointListener(Point.OnPointListener pointListener){
+        public void setPointListener(Point.OnPointListener pointListener) {
             this.pointListener = pointListener;
         }
     }
+
 }
