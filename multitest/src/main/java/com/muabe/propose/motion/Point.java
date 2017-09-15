@@ -69,4 +69,12 @@ public class Point {
     }
 
 
+    public void setMaxPoint(float maxPoint){
+        this.maxPoint = maxPoint;
+    }
+
+    public float getMaxPoint(){
+        return maxPoint;
+    }
+
 }

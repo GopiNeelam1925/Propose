@@ -23,23 +23,32 @@ public class Filter {
         DirectionFilter directionH = DirectionFilter.getX();
         DirectionFilter directionV = DirectionFilter.getY();
 
-        Filter.addSingle(State.MotionState.LEFT, directionH);
-        Filter.addSingle(State.MotionState.RIGHT, directionH);
-        Filter.addSingle(State.MotionState.UP, directionV);
-        Filter.addSingle(State.MotionState.DOWN, directionV);
+        Filter.add(State.MotionState.LEFT, directionH);
+        Filter.add(State.MotionState.RIGHT, directionH);
+        Filter.add(State.MotionState.UP, directionV);
+        Filter.add(State.MotionState.DOWN, directionV);
     }
 
-    public static void addSingle(State.MotionState state, DragFilter filter) {
-        Filter.singleFilters.put(state, filter);
+    public static void add(State.MotionState state, DragFilter filter) {
+        if(isSingle(state)) {
+            Filter.singleFilters.put(state, filter);
+        }
     }
 
-    public static void addSingleMotion(Motion motion) {
-        if(Filter.singleFilters.containsKey(motion.getMotionState())) {
-            Filter.singleFilters.get(motion.getMotionState()).addMotion(motion);
+    //TODO REMOVE - test
+    public static void addMotion(Motion motion) {
+        if(isSingle(motion.getMotionState())) {
+            if (Filter.singleFilters.containsKey(motion.getMotionState())) {
+                Filter.singleFilters.get(motion.getMotionState()).addMotion(motion);
+            }
         }
     }
 
     public static List<DragFilter> getSingleValues() {
         return singleFilters.getValues();
+    }
+
+    private static boolean isSingle(State.MotionState state){
+        return state.getPointerCount()==1;
     }
 }

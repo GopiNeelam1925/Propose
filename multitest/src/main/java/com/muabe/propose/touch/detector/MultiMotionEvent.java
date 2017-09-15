@@ -53,11 +53,11 @@ public class MultiMotionEvent{
 
     }
 
-    public float getMultiDragX(){
+    public float getDragX(){
         return currFocusX - preFocusX;
     }
 
-    public float getMultiDragY(){
+    public float getDragY(){
         return currFocusY - preFocusY;
     }
 }

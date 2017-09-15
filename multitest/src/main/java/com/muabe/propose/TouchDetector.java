@@ -37,14 +37,15 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
         test();
     }
 
+
     //TODO REMOVE
     private void test(){
-        Filter.addSingleMotion(new Motion(State.MotionState.LEFT));
-        Filter.addSingleMotion(new Motion(State.MotionState.RIGHT));
-//        Filter.addSingleMotion(new Motion(State.MotionState.UP));
-//        Filter.addSingleMotion(new Motion(State.MotionState.DOWN));
-        Filter.addSingleMotion(new Motion(State.MotionState.MULTI_LEFT));
-        Filter.addSingleMotion(new Motion(State.MotionState.MULTI_RIGHT));
+        Filter.addMotion(new Motion(State.MotionState.LEFT));
+        Filter.addMotion(new Motion(State.MotionState.RIGHT));
+//        Filter.addMotion(new Motion(State.MotionState.UP));
+//        Filter.addMotion(new Motion(State.MotionState.DOWN));
+        Filter.addMotion(new Motion(State.MotionState.MULTI_LEFT));
+        Filter.addMotion(new Motion(State.MotionState.MULTI_RIGHT));
     }
 
 
@@ -81,7 +82,7 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
     public boolean onDrag(SingleMotionEvent event) {
         List<DragFilter> dragFilterList = Filter.getSingleValues();
         for(DragFilter filter : dragFilterList){
-            filter.dragFilter(event);
+            filter.onDrag(event);
         }
         return true;
     }

@@ -5,6 +5,7 @@ import com.muabe.propose.motion.DragFilter;
 import com.muabe.propose.motion.LinkedPoint;
 import com.muabe.propose.motion.Motion;
 import com.muabe.propose.motion.Point;
+import com.muabe.propose.touch.detector.MultiMotionEvent;
 import com.muabe.propose.touch.detector.SingleMotionEvent;
 import com.muabe.propose.util.Mlog;
 import com.muabe.propose.util.ObservableMap;
@@ -69,7 +70,7 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
     }
 
     @Override
-    public boolean dragFilter(SingleMotionEvent event) {
+    public boolean onDrag(SingleMotionEvent event) {
         if (pointObservable.size() > 0) {
             float distance = this.distance.get(event);
             if (distance != 0) {
@@ -90,6 +91,11 @@ public class DirectionFilter implements DragFilter, LinkedPoint.OnPointChangeLis
                 }
             }
         }
+        return false;
+    }
+
+    @Override
+    public boolean onMultiDrag(MultiMotionEvent event) {
         return false;
     }
 

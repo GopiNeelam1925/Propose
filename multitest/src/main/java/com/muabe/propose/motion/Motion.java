@@ -13,9 +13,11 @@ import com.muabe.propose.util.Mlog;
 
 public class Motion implements Point.OnPointListener {
     private State.MotionState motionState;
+    private Point point;
 
-    public Motion(State.MotionState motionState){
+    public Motion(State.MotionState motionState, float maxPoint){
         this.motionState = motionState;
+        point = new Point(getMotionState(), maxPoint, this);
     }
 
     @Override
@@ -34,7 +36,7 @@ public class Motion implements Point.OnPointListener {
     }
 
     public float getMaxPoint(){
-        return 100*3;
+        return point.getMaxPoint();
     }
 
     public float getMinPoint(){
@@ -43,5 +45,9 @@ public class Motion implements Point.OnPointListener {
 
     public State.MotionState getMotionState(){
         return this.motionState;
+    }
+
+    public Point getPoint(){
+        return this.point;
     }
 }
