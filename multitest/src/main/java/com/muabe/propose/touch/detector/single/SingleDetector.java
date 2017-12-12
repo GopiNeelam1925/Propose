@@ -1,24 +1,27 @@
-package com.muabe.propose.touch.detector;
+package com.muabe.propose.touch.detector.single;
 
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import com.muabe.propose.touch.detector.OnTouchDetectListener;
+
 /**
  * <br>捲土重來<br>
+ * 외부에서 사용하면 안됌(java9에서 모듈할 예정)
  *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2017-04-06
  */
 
-class SingleDetector implements GestureDetector.OnGestureListener{
+public class SingleDetector implements GestureDetector.OnGestureListener{
     private SingleMotionEvent singleEvent;
     private SingleGestureDetector gestureDetector;
-    private TouchDetectAdapter.OnTouchDetectListener listener;
+    private OnTouchDetectListener listener;
 
 
-    public SingleDetector(Context context, TouchDetectAdapter.OnTouchDetectListener listener){
+    public SingleDetector(Context context, OnTouchDetectListener listener){
         singleEvent = new SingleMotionEvent();
         gestureDetector = new SingleGestureDetector(context, this);
         this.listener = listener;

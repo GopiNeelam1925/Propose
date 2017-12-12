@@ -1,23 +1,26 @@
-package com.muabe.propose.touch.detector;
+package com.muabe.propose.touch.detector.multi;
 
 import android.content.Context;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
+import com.muabe.propose.touch.detector.OnTouchDetectListener;
+
 /**
  * <br>捲土重來<br>
+ * 외부에서 사용하면 안됌(java9에서 모듈 사용할 예정)
  *
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2017-04-06
  */
 
-class MultiDetector implements ScaleGestureDetector.OnScaleGestureListener{
+public class MultiDetector implements ScaleGestureDetector.OnScaleGestureListener{
     private MultiMotionEvent multiEvent;
     private MultiGestureDetector gestureDetector;
-    private TouchDetectAdapter.OnTouchDetectListener listener;
+    private OnTouchDetectListener listener;
 
-    public MultiDetector(Context context, TouchDetectAdapter.OnTouchDetectListener listener){
+    public MultiDetector(Context context, OnTouchDetectListener listener){
         multiEvent = new MultiMotionEvent();
         gestureDetector = new MultiGestureDetector(context, this);
         this.listener = listener;

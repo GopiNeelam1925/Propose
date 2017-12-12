@@ -5,12 +5,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.muabe.propose.motion.DragFilter;
-import com.muabe.propose.motion.Motion;
 import com.muabe.propose.motion.filter.Filter;
-import com.muabe.propose.touch.coords.MetrixCordinates;
-import com.muabe.propose.touch.coords.WindowCoordinates;
-import com.muabe.propose.touch.detector.MultiMotionEvent;
-import com.muabe.propose.touch.detector.SingleMotionEvent;
+import com.muabe.propose.touch.coords.metrix.MetrixCordinates;
+import com.muabe.propose.touch.coords.window.WindowCoordinates;
+import com.muabe.propose.touch.detector.multi.MultiMotionEvent;
+import com.muabe.propose.touch.detector.OnTouchDetectListener;
+import com.muabe.propose.touch.detector.single.SingleMotionEvent;
 import com.muabe.propose.touch.detector.TouchDetectAdapter;
 import com.muabe.propose.util.Mlog;
 
@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2017-02-21
  */
 
-public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
+public class TouchDetector implements OnTouchDetectListener {
 
     private TouchDetectAdapter touchDetectAdapter;
     private boolean isWindow = false;
@@ -33,20 +33,18 @@ public class TouchDetector implements TouchDetectAdapter.OnTouchDetectListener {
         touchDetectAdapter = new TouchDetectAdapter(context, this);
         isWindow = WindowCoordinates.isBindWindow();
         Mlog.e(this, "WindowCoordinates:"+isWindow);
-
-        test();
     }
 
-
-    //TODO REMOVE
-    private void test(){
-        Filter.addMotion(new Motion(State.MotionState.LEFT));
-        Filter.addMotion(new Motion(State.MotionState.RIGHT));
-//        Filter.addMotion(new Motion(State.MotionState.UP));
-//        Filter.addMotion(new Motion(State.MotionState.DOWN));
-        Filter.addMotion(new Motion(State.MotionState.MULTI_LEFT));
-        Filter.addMotion(new Motion(State.MotionState.MULTI_RIGHT));
-    }
+//
+//    //TODO REMOVE
+//    private void test(){
+//        Filter.addMotion(new Motion(State.MotionState.LEFT));
+//        Filter.addMotion(new Motion(State.MotionState.RIGHT));
+////        Filter.addMotion(new Motion(State.MotionState.UP));
+////        Filter.addMotion(new Motion(State.MotionState.DOWN));
+//        Filter.addMotion(new Motion(State.MotionState.MULTI_LEFT));
+//        Filter.addMotion(new Motion(State.MotionState.MULTI_RIGHT));
+//    }
 
 
     public boolean onTouchEvent(View touchView, MotionEvent originEvent) {

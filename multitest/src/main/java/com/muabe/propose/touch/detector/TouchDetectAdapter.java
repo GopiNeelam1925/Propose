@@ -3,6 +3,9 @@ package com.muabe.propose.touch.detector;
 import android.content.Context;
 import android.view.MotionEvent;
 
+import com.muabe.propose.touch.detector.multi.MultiDetector;
+import com.muabe.propose.touch.detector.single.SingleDetector;
+
 /**
  * <br>捲土重來<br>
  *
@@ -12,17 +15,6 @@ import android.view.MotionEvent;
  */
 
 public class TouchDetectAdapter {
-    public interface OnTouchDetectListener {
-        boolean onDown(SingleMotionEvent event);
-        boolean onUp(SingleMotionEvent event);
-        boolean onDrag(SingleMotionEvent event);
-
-        boolean onMulitBegin(MultiMotionEvent event);
-        boolean onMultiEnd(MultiMotionEvent event);
-        boolean onMultiDrag(MultiMotionEvent event);
-        boolean onMultiUp(MultiMotionEvent multiEvent);
-    }
-
     private MultiDetector multiAdater;
     private SingleDetector singleAdapter;
 

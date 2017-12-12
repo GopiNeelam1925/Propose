@@ -20,6 +20,8 @@ public class Motion implements Point.OnPointListener {
         point = new Point(getMotionState(), maxPoint, this);
     }
 
+
+
     @Override
     public void onPoint(float prePoint, float point) {
         Mlog.d(this, motionState+" : "+point);

@@ -1,4 +1,4 @@
-package com.muabe.propose.touch.detector;
+package com.muabe.propose.touch.detector.single;
 
 import android.view.MotionEvent;
 

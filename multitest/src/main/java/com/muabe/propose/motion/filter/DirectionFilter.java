@@ -5,8 +5,8 @@ import com.muabe.propose.motion.DragFilter;
 import com.muabe.propose.motion.LinkedPoint;
 import com.muabe.propose.motion.Motion;
 import com.muabe.propose.motion.Point;
-import com.muabe.propose.touch.detector.MultiMotionEvent;
-import com.muabe.propose.touch.detector.SingleMotionEvent;
+import com.muabe.propose.touch.detector.multi.MultiMotionEvent;
+import com.muabe.propose.touch.detector.single.SingleMotionEvent;
 import com.muabe.propose.util.Mlog;
 import com.muabe.propose.util.ObservableMap;
 

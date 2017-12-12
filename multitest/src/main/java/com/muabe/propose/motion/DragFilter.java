@@ -1,7 +1,7 @@
 package com.muabe.propose.motion;
 
-import com.muabe.propose.touch.detector.MultiMotionEvent;
-import com.muabe.propose.touch.detector.SingleMotionEvent;
+import com.muabe.propose.touch.detector.multi.MultiMotionEvent;
+import com.muabe.propose.touch.detector.single.SingleMotionEvent;
 
 /**
  * <br>捲土重來<br>
@@ -13,6 +13,6 @@ import com.muabe.propose.touch.detector.SingleMotionEvent;
 
 public interface DragFilter {
     void addMotion(Motion motion);
-    boolean onDrag(SingleMotionEvent event, Point point);
+    boolean onDrag(SingleMotionEvent event);
     boolean onMultiDrag(MultiMotionEvent event);
 }

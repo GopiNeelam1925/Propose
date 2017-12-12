@@ -1,4 +1,4 @@
-package com.muabe.propose.touch.coords;
+package com.muabe.propose.touch.coords.window;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -16,19 +16,19 @@ import android.view.accessibility.AccessibilityEvent;
 
 /**
  * <br>捲土重來<br>
+ * 외부에서 사용하면 안됌(java9에서 모듈 사용할 예정)
  *
+ * 윈도우의 터치 이벤트를 가로 채서 OnDispatchTouchListener 으로 보내준다.<br>
+ * OnDispatchTouchListener는 절대좌표 변환기인 AbsolutenessCoordinates에서 사용한다.
  * @author 오재웅(JaeWoong-Oh)
  * @email markjmind@gmail.com
  * @since 2017-03-22
  */
 
 class WindowTouchEventAdapter implements Window.Callback{
-    interface OnDispatchTouchListener {
-        void onDispatchTouchEvent(MotionEvent event);
-    }
 
     private Window.Callback callback;
-    private OnDispatchTouchListener onDispatchTouchListener;
+    private AbsolutenessCoordinates.OnDispatchTouchListener onDispatchTouchListener;
 
     private WindowTouchEventAdapter(Window.Callback callback){
         this.callback = callback;
@@ -45,7 +45,7 @@ class WindowTouchEventAdapter implements Window.Callback{
 //        }
 //    }
 
-    public static void dispatchTouchEvent(Window window, OnDispatchTouchListener onDispatchTouchListener){
+    public static void dispatchTouchEvent(Window window, AbsolutenessCoordinates.OnDispatchTouchListener onDispatchTouchListener){
         WindowTouchEventAdapter adapter = new WindowTouchEventAdapter(window.getCallback());
         Window.Callback callback = adapter.getCallback();
         if(isRegistry(window)){
@@ -64,11 +64,11 @@ class WindowTouchEventAdapter implements Window.Callback{
         return this.callback;
     }
 
-    public static void dispatchTouchEvent(Activity activity, OnDispatchTouchListener onDispatchTouchListener){
+    public static void dispatchTouchEvent(Activity activity, AbsolutenessCoordinates.OnDispatchTouchListener onDispatchTouchListener){
         WindowTouchEventAdapter.dispatchTouchEvent(activity.getWindow(), onDispatchTouchListener);
     }
 
-    public void setOnDispatchTouchListener(OnDispatchTouchListener onDispatchTouchListener){
+    public void setOnDispatchTouchListener(AbsolutenessCoordinates.OnDispatchTouchListener onDispatchTouchListener){
         this.onDispatchTouchListener = onDispatchTouchListener;
     }
 
